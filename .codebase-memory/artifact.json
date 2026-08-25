@@ -1,11 +1,11 @@
 {
     "schema_version": 1,
-    "commit": "f54583d25bca514655abe7797a4016d531f8b733",
-    "indexed_at": "2026-08-25T23:27:09Z",
+    "commit": "580a19fc370ce7494825ffd8ceec3290293ffc02",
+    "indexed_at": "2026-08-25T23:30:32Z",
     "project": "Users-leoaguinaga-apps-landing-pages-coffe",
-    "nodes": 4607,
-    "edges": 13797,
+    "nodes": 4608,
+    "edges": 13794,
     "original_size": 19398656,
-    "compressed_size": 3682688,
+    "compressed_size": 3680648,
     "compression_level": 3
 }
