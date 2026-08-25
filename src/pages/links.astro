@@ -1,0 +1,93 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { locations } from '../data/locations.data';
+
+const primaryLinks = [
+  { label: 'Ver la carta', detail: 'Cafés, métodos y acompañamientos', href: '/carta' },
+  { label: 'Escríbenos por WhatsApp', detail: 'Consultas y atención directa', href: 'https://api.whatsapp.com/send?phone=51978720665' },
+  { label: 'Instagram', detail: '@mishacoffeelab', href: 'https://www.instagram.com/mishacoffeelab/' },
+  { label: 'Facebook', detail: 'Misha Coffee Lab', href: 'https://www.facebook.com/mishacoffeelab' },
+  { label: 'TikTok', detail: '@mishacoffeelab', href: 'https://www.tiktok.com/@mishacoffeelab?_t=8fmjulxgne9&_r=1' },
+  { label: 'Threads', detail: '@mishacoffeelab', href: 'https://www.threads.com/@mishacoffeelab' }
+] as const;
+
+---
+
+<MainLayout title="Enlaces | MISHA" description="Todos los enlaces de MISHA Coffee Lab." showFooter={false}>
+  <main class="min-h-screen bg-background-light px-4 py-10 sm:py-16">
+    <div class="mx-auto max-w-xl">
+      <header class="text-center">
+        <h1 class="mt-7 font-display text-4xl text-secondary sm:text-5xl misha-subheading">Todo MISHA, en un lugar.</h1>
+        <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-secondary/65">Café peruano de alta calidad para descubrir, compartir y disfrutar en Chiclayo.</p>
+      </header>
+
+      <section class="mt-10 space-y-3" aria-label="Enlaces principales">
+        {primaryLinks.map((link) => (
+          <a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noreferrer' : undefined} class="group flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-[0_10px_25px_rgba(9,6,6,0.06)] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary">
+            <span>
+              <span class="block font-semibold text-secondary">{link.label}</span>
+              <span class="mt-0.5 block text-xs text-secondary/55">{link.detail}</span>
+            </span>
+            <span class="text-xl text-primary transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </section>
+
+      <section class="mt-12" aria-labelledby="locations-title">
+        <h2 id="locations-title" class="font-display text-2xl text-secondary">Encuentra tu sede</h2>
+        <p class="mt-2 text-sm leading-relaxed text-secondary/60">Elige una sede para verla en el mapa y abrir la ruta en Google Maps.</p>
+        <div class="mt-5 overflow-hidden rounded-2xl bg-secondary shadow-[0_16px_32px_rgba(9,6,6,0.14)]">
+          <iframe
+            data-location-map
+            src={`https://www.google.com/maps?q=${locations[0].coordinates}&z=16&output=embed`}
+            title={`Mapa de la sede MISHA ${locations[0].name}`}
+            class="block aspect-[4/3] w-full border-0 sm:aspect-[16/9]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2" aria-label="Sedes de MISHA">
+          {locations.map((location) => (
+            <div class="rounded-xl border border-secondary/10 bg-white p-4 shadow-[0_8px_18px_rgba(9,6,6,0.05)]">
+              <button
+                type="button"
+                data-location-map-trigger
+                data-location-name={location.name}
+                data-location-coordinates={location.coordinates}
+                aria-pressed={location === locations[0] ? 'true' : 'false'}
+                class="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg text-left text-sm font-semibold text-secondary transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <span>{location.name}</span>
+                <span class="text-xs font-medium text-primary">Ver en mapa</span>
+              </button>
+              <a href={location.mapUrl} target="_blank" rel="noreferrer" class="mt-2 inline-flex items-center text-xs font-medium text-secondary/60 underline decoration-primary/50 decoration-2 underline-offset-4 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">{location.address.replace(', Chiclayo 14001.', '').replace(', Chiclayo 14008.', '')}</a>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+</MainLayout>
+
+<script>
+  const mapFrame = document.querySelector<HTMLIFrameElement>('[data-location-map]');
+  const mapTriggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-location-map-trigger]'));
+
+  mapTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const coordinates = trigger.dataset.locationCoordinates;
+      const locationName = trigger.dataset.locationName;
+
+      if (!coordinates || !locationName || !mapFrame) return;
+
+      mapFrame.src = `https://www.google.com/maps?q=${coordinates}&z=16&output=embed`;
+      mapFrame.title = `Mapa de la sede MISHA ${locationName}`;
+
+      mapTriggers.forEach((button) => {
+        const isSelected = button === trigger;
+        button.setAttribute('aria-pressed', String(isSelected));
+        button.classList.toggle('text-primary', isSelected);
+      });
+    });
+  });
+</script>

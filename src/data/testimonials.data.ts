@@ -13,7 +13,7 @@ export const testimonials = [
   },
   {
     quote:
-      'Me encanta el ambiente para trabajar. El wifi es estable y los croissants de almendra son deliciosos. La Capilla es mi segunda oficina.',
+      'Me encanta el ambiente para trabajar. El wifi es estable y los croissants de almendra son deliciosos. MISHA es mi segunda oficina.',
     author: 'Elena García',
     role: 'Freelancer'
   }

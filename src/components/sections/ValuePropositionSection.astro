@@ -1,0 +1,16 @@
+---
+import Button from '../ui/Button.astro';
+---
+
+<section class="bg-secondary py-14 text-white sm:py-20" aria-labelledby="value-title">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr_0.8fr] md:items-end xl:px-0">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary">La propuesta MISHA</p>
+      <h2 id="value-title" class="misha-heading mt-4 max-w-3xl">Café peruano de alta calidad, preparado con cercanía y detalle.</h2>
+    </div>
+    <div class="md:pb-1">
+      <p class="text-base leading-relaxed text-white/70">Desde un espresso cotidiano hasta un método para quedarte un rato más: en MISHA cada taza invita a descubrir el café sin complicaciones.</p>
+      <Button href="/carta" size="md" class="mt-6 w-full rounded-xl sm:w-auto">Explorar la carta</Button>
+    </div>
+  </div>
+</section>

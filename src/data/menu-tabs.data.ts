@@ -3,5 +3,6 @@ export const menuTabs = [
   { label: 'Café Clásico', value: 'clasico', active: false },
   { label: 'Métodos', value: 'metodos', active: false },
   { label: 'Fríos', value: 'frios', active: false },
-  { label: 'Pastelería', value: 'pasteleria', active: false }
+  { label: 'Especialidades', value: 'especiales', active: false },
+  { label: 'Para acompañar', value: 'acompanamientos', active: false }
 ] as const;

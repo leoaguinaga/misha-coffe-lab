@@ -9,24 +9,27 @@
 @import '@fontsource/poppins/800.css';
 @import '@fontsource/poppins/900.css';
 @import '@fontsource-variable/inter';
-@import '@fontsource-variable/playfair-display';
 
 @theme {
-  --font-display: "Playfair Display", serif;
+  --font-display: "Poppins", sans-serif;
   --font-sans: "Poppins", sans-serif;
-  --color-primary: #189b30;
-  --color-secondary: #050004;
-  --color-background: #F9F7F2;
-  --color-background-light: #f8f7f6;
-  --color-background-dark: #221910;
-  --color-coffee-dark: #1a130c;
-  --color-coffee-cream: #f4ede4;
+  --color-primary: #b72d3b;
+  --color-secondary: #090606;
+  --color-background: #fff8f8;
+  --color-background-light: #fffafa;
+  --color-background-dark: #1a0b0d;
+  --color-coffee-dark: #090606;
+  --color-coffee-cream: #f7edef;
 }
 
 @layer base {
   body {
     @apply min-h-screen font-sans;
+    accent-color: #b72d3b;
+    scrollbar-color: #b72d3b #090606;
   }
+
+  ::selection { background: #b72d3b; color: #fff; }
 
   a,
   button {
@@ -35,3 +38,21 @@
 }
 
 .no-chevron::-ms-expand { display: none; }
+
+@layer components {
+  .misha-heading {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.7rem);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+  }
+
+  .misha-subheading {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+  }
+}

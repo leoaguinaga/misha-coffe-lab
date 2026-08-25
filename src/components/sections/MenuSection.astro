@@ -3,41 +3,47 @@ import Badge from '../ui/Badge.astro';
 import { menuCategories } from '../../data/menu-categories.data';
 ---
 
-<section class="mx-auto max-w-6xl py-18 px-4 md:px-0" data-menu-content>
-  {menuCategories.map((category) => (
-    <section
-      id={category.id}
-      class="menu-category mb-10 scroll-mt-40"
-      data-category-section={category.id}
-      aria-labelledby={`${category.id}-title`}
-    >
-      <div class="mb-8 flex items-center justify-between">
-        <h2 id={`${category.id}-title`} class="font-display text-2xl text-secondary">{category.name}</h2>
-        <div class="ml-4 h-px flex-1 bg-secondary/10" aria-hidden="true"></div>
-      </div>
+<section class="mx-auto max-w-6xl scroll-mt-40 px-4 py-10 md:py-18 xl:px-0" data-menu-content>
+  {menuCategories.map((category, index) => {
+    return (
+      <section id={category.id} class="menu-category mb-18 scroll-mt-40 md:mb-28" data-category-section={category.id} aria-labelledby={`${category.id}-title`}>
+        <div class="mb-6 flex items-end justify-between gap-4 md:mb-9">
+          <h2 id={`${category.id}-title`} class="misha-subheading max-w-xl text-secondary">{category.name}</h2>
+        </div>
 
-      <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {category.items.map((item) => (
-          <article class="group flex items-start gap-4">
-            <div class="size-25 md:size-22 shrink-0 overflow-hidden rounded-lg shadow-sm">
-              <img src={item.image} alt={item.name} class="h-full w-full object-cover" loading="lazy" />
-            </div>
-
-            <div class="min-w-0 flex-1">
-              <div class="flex items-start justify-between gap-2">
-                <h3 class="font-display text-lg leading-tight text-secondary">{item.name}</h3>
-                <p class="font-bold text-secondary">{item.price}</p>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {category.items.map((item, itemIndex) => (
+            <article class="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_12px_28px_rgba(41,27,19,0.08)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(41,27,19,0.13)]">
+              <div class="relative aspect-[4/3] overflow-hidden bg-secondary">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading={index === 0 && itemIndex < 3 ? 'eager' : 'lazy'}
+                />
+                <div class="absolute inset-0 bg-linear-to-t from-secondary/35 via-transparent to-transparent"></div>
+                {item.badge && <Badge class="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] tracking-[0.08em] text-white">{item.badge}</Badge>}
               </div>
-              <p class="mt-1 text-xs text-secondary/60">{item.description}</p>
-              {item.badge && (
-                <Badge class="mt-2 rounded border border-primary/20 bg-transparent px-2 py-0.5 text-[9px] tracking-tight text-primary">
-                  {item.badge}
-                </Badge>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  ))}
+
+              <div class="flex flex-1 flex-col p-5 md:p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <h3 class="text-xl font-bold leading-tight tracking-[-0.025em] text-secondary transition-colors group-hover:text-primary">{item.name}</h3>
+                  <p class="shrink-0 pt-0.5 text-lg font-bold tracking-[-0.03em] text-primary">{item.price}</p>
+                </div>
+                <p class="mt-3 text-sm leading-relaxed text-secondary/65">{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+<!-- 
+  <aside class="overflow-hidden rounded-2xl bg-primary px-6 py-10 text-white sm:px-10 sm:py-14" aria-label="Nota sobre la carta">
+    <p class="misha-heading max-w-3xl">La carta empieza aquí. La experiencia continúa en la barra.</p>
+    <div class="mt-8 flex flex-col gap-5 border-t border-white/30 pt-5 sm:flex-row sm:items-end sm:justify-between">
+      <p class="max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">¿Quieres conocer ingredientes, valores nutricionales o la disponibilidad del día? Escríbenos directamente.</p>
+      <a href="https://api.whatsapp.com/send?phone=51978720665" target="_blank" rel="noreferrer" class="shrink-0 font-bold text-white underline decoration-secondary decoration-2 underline-offset-6">Hablar por WhatsApp</a>
+    </div>
+  </aside> -->
 </section>

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T17:40:00-05:00",
+  "title": "Design System: MISHA COFFE LAB",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Rojo MISHA", "canonical": "#b72d3b", "tonalRamp": ["#3a0b11", "#571019", "#741722", "#90202c", "#b72d3b", "#d85360", "#ec9098", "#fdebed"] },
+      "ink": { "role": "neutral", "displayName": "Tinta", "canonical": "#090606", "tonalRamp": ["#090606", "#21191a", "#3c3233", "#5a4f50", "#7b7071", "#aaa0a1", "#d8d0d0", "#fff8f8"] },
+      "paper": { "role": "neutral", "displayName": "Papel", "canonical": "#fff8f8", "tonalRamp": ["#382f30", "#55494a", "#746667", "#928485", "#b3a5a5", "#d3c5c6", "#ecdedf", "#fff8f8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Titular MISHA", "purpose": "Titulares de contenido principal en todas las rutas." },
+      "body": { "displayName": "Lectura", "purpose": "Descripciones y textos de soporte." },
+      "label": { "displayName": "Etiqueta", "purpose": "Badges, categorías y datos secundarios." }
+    },
+    "shadows": [
+      { "name": "accent-soft", "value": "0 12px 28px rgba(183, 45, 59, 0.2)", "purpose": "Elevación breve de acciones primarias." }
+    ],
+    "motion": [
+      { "name": "standard", "value": "200ms ease-out", "purpose": "Transiciones de controles y tarjetas." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal roja, clara y compacta.",
+      "html": "<button class=\"ds-btn-primary\">Ver la carta</button>",
+      "css": ".ds-btn-primary { border: 0; border-radius: 12px; background: #b72d3b; color: #090606; padding: 12px 24px; font: 600 14px Poppins, sans-serif; transition: opacity 200ms ease-out, transform 200ms ease-out; } .ds-btn-primary:hover { opacity: .9; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #b72d3b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Featured Card",
+      "kind": "card",
+      "refersTo": "card-dark",
+      "description": "Contenedor editorial de producto destacado.",
+      "html": "<article class=\"ds-card\"><strong>Capuccino Tradicional</strong></article>",
+      "css": ".ds-card { border-radius: 24px; background: #090606; color: #fff; padding: 32px; font: 700 clamp(2.5rem, 5vw, 4rem)/.94 Poppins, sans-serif; letter-spacing: -.045em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La barra roja",
+    "overview": "MISHA combina la oscuridad concentrada de una barra de café con una superficie de papel cálido. La interfaz debe sentirse decidida y cercana: negro para peso, rojo para acción y un blanco rosado para descanso.",
+    "keyCharacteristics": ["Tipografía sans extra-bold, compacta y editorial para cada título principal.", "Fotografía de café enmarcada por negro profundo y esquinas suaves.", "Rojo MISHA reservado para acciones, énfasis y pequeñas señales de orientación."],
+    "rules": [
+      { "name": "The Accent Rule", "body": "El rojo llama a la acción o marca una prioridad; la legibilidad siempre se sostiene con tinta o blanco.", "section": "colors" },
+      { "name": "The One Title Rule", "body": "No crear escalas de display distintas entre rutas: hero, encabezado de carta, categorías y destacados parten de .misha-heading.", "section": "typography" }
+    ],
+    "dos": ["Do usar .misha-heading para todos los títulos de contenido principal.", "Do repetir los mismos papel, tinta y rojo entre index, carta y rutas auxiliares.", "Do usar el rojo como acento de alto contraste para acciones y selección."],
+    "donts": ["Don't reintroducir tipografía serif o un peso liviano para títulos principales.", "Don't crear una escala de titulares exclusiva para la carta.", "Don't usar verde, marrones de la identidad anterior ni una tercera familia de superficies."]
+  }
+}

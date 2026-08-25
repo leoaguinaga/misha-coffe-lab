@@ -7,14 +7,14 @@ import { footerNav, legalLinks } from '../../data/footer.data';
   <div class="mx-auto max-w-6xl px-4 xl:px-0">
     <div class="mb-14 grid items-center gap-10 md:mb-20 md:grid-cols-2 md:gap-12 lg:gap-16">
       <div class="space-y-4 md:space-y-6">
-        <h2 class="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">
+        <h2 class="misha-heading">
           Contamos con delivery en todo Chiclayo
         </h2>
         <p class="text-base text-white/70 sm:text-lg">
-          Escríbrenos por WhatsApp para encontrar coordinar tu pedido o encontrar la sede más cercana.
+          Escríbenos por WhatsApp para coordinar tu pedido y recibirlo donde estés.
         </p>
         <Button
-          href="https://wa.me/51XXXXXXXXX?text=Hola%2C%20quiero%20encontrar%20la%20sede%20m%C3%A1s%20cercana"
+          href="https://api.whatsapp.com/send?phone=51978720665"
           size="lg"
           class="w-full rounded-xl sm:w-auto"
         >
@@ -25,7 +25,7 @@ import { footerNav, legalLinks } from '../../data/footer.data';
       <div class="h-64 overflow-hidden rounded-2xl border border-white/10 grayscale transition-all duration-700 hover:grayscale-0 sm:h-80 md:h-96">
         <img
           src="https://images.pexels.com/photos/7362966/pexels-photo-7362966.jpeg"
-          alt="Mapa referencial de Chiclayo con sedes"
+          alt="Repartidor preparando un pedido para delivery"
           class="h-full w-full object-cover"
           loading="lazy"
         />
@@ -37,10 +37,11 @@ import { footerNav, legalLinks } from '../../data/footer.data';
     <div class="mb-10 grid gap-10 text-sm sm:grid-cols-2 lg:mb-12 lg:grid-cols-4 lg:gap-12 text-center md:text-left">
       <div class="space-y-5">
         <div class="flex items-center gap-2 justify-center md:justify-start">
-          <img src="/logo-alt.png" class="h-10 invert" alt="La Capilla del Café" />
+          <img src="/misha.png" class="size-10" alt="" />
+          <span class="text-2xl font-extrabold tracking-[-0.035em]">MISHA COFFE LAB</span>
         </div>
         <p class="text-white/60">
-          Pasión por el café desde el origen. Productores independientes comprometidos con la calidad suprema.
+          Café peruano de alta calidad, preparado con cercanía y detalle.
         </p>
       </div>
 
@@ -58,10 +59,10 @@ import { footerNav, legalLinks } from '../../data/footer.data';
       <div>
         <h3 class="mb-4 text-xs font-bold uppercase tracking-[0.2em]">Contacto</h3>
         <ul class="space-y-3 text-white/75">
-          <li>contacto@lacapilla.pe</li>
-          <li>+51 987 654 321</li>
-          <li>Instagram</li>
-          <li>Facebook</li>
+          <li><a href="https://api.whatsapp.com/send?phone=51978720665" target="_blank" rel="noreferrer" class="transition-colors hover:text-primary">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/mishacoffeelab/" target="_blank" rel="noreferrer" class="transition-colors hover:text-primary">Instagram</a></li>
+          <li><a href="https://www.facebook.com/mishacoffeelab" target="_blank" rel="noreferrer" class="transition-colors hover:text-primary">Facebook</a></li>
+          <li><a href="/links" class="transition-colors hover:text-primary">Todos los enlaces</a></li>
         </ul>
       </div>
 

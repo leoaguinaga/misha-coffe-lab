@@ -1,25 +1,41 @@
 ---
 import { menuTabs } from '../../data/menu-tabs.data';
+import { locations } from '../../data/locations.data';
 ---
 
-<section class="bg-background-light" aria-label="Encabezado de carta">
+<div class="contents" aria-label="Encabezado de carta">
   <nav
-    class="fixed w-full top-16 z-40 border-t border-secondary/10 bg-background-light py-3 md:top-15"
-    aria-label="Filtro por categorías"
+    class="sticky top-16 z-40 mt-8 border-y border-secondary/10 bg-background-light/95 py-3 shadow-[0_10px_22px_rgba(41,27,19,0.05)] backdrop-blur md:top-15"
+    aria-label="Controles de la carta"
     data-menu-filter
   >
-    <div class="mx-auto max-w-6xl flex items-center px-4 md:px-0">
-      <label for="menu-category-select" class="sr-only">Seleccionar categoría</label>
-      <select
-        id="menu-category-select"
-        class="w-full rounded-xl border text-center text-neutral-900/80 border-secondary/10 bg-white px-4 py-2 text-sm font-semibold focus:border-primary focus:outline-none md:hidden appearance-none no-chevron"
-      >
-        {menuTabs.map((tab) => (
-        <option value={tab.value} selected={tab.active}>{tab.label}</option>
-        ))}
-      </select>
+    <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 md:px-0">
+      <div class="group relative shrink-0" data-location-selector>
+        <button type="button" data-location-trigger aria-haspopup="listbox" aria-expanded="false" class="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-secondary/12 bg-white py-2 pl-3 pr-2 text-sm font-bold text-secondary shadow-[0_5px_14px_rgba(41,27,19,0.05)] transition-colors hover:border-primary/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <span class="sr-only">Sede seleccionada:</span>
+          <span data-selected-location>Elige tu sede</span>
+          <svg class="size-4 text-primary transition-transform group-[.is-open]:rotate-180" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div data-location-options class="absolute left-0 top-[calc(100%+0.5rem)] z-10 hidden w-68 overflow-hidden rounded-xl border border-secondary/10 bg-white p-1.5 shadow-[0_16px_34px_rgba(41,27,19,0.15)]" role="listbox" aria-label="Sedes disponibles">
+          <p class="px-3 pb-1.5 pt-2 text-xs font-bold uppercase tracking-[0.14em] text-secondary/45">Elige una sede</p>
+          {locations.map((location) => (
+            <button
+              type="button"
+              data-location-name={location.name}
+              data-location-map={location.mapUrl}
+              class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-semibold text-secondary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <span>{location.name}</span>
+              <span class="text-xs font-normal text-secondary/55">{location.address.replace(', Chiclayo 14001.', '').replace(', Chiclayo 14008.', '')}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-      <ul class="hidden gap-2 overflow-x-auto md:flex" role="tablist" aria-label="Categorías de carta">
+      <div class="min-w-0 flex-1" aria-label="Filtro por categorías">
+        <ul class="-mr-4 flex gap-2 overflow-x-auto pr-4 pb-1 [scrollbar-width:thin] pb-2 md:-mr-0 md:pr-0" role="tablist" aria-label="Categorías de carta">
         {menuTabs.map((tab) => (
           <li>
             <button
@@ -27,69 +43,117 @@ import { menuTabs } from '../../data/menu-tabs.data';
               role="tab"
               data-filter-value={tab.value}
               aria-selected={tab.active ? 'true' : 'false'}
-              class={`inline-flex whitespace-nowrap rounded-xl px-4 py-2 text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+              class={`inline-flex  whitespace-nowrap rounded-full px-4 py-2 text-xs mt-3 font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 tab.active
                   ? 'bg-secondary text-white'
-                  : 'border border-secondary/10 bg-white text-secondary/60 hover:text-secondary'
+                  : 'border border-secondary/10 bg-white text-secondary/60'
               }`}
             >
               {tab.label}
             </button>
           </li>
         ))}
-      </ul>
+        </ul>
+      </div>
+      <a data-location-link class="hidden shrink-0 rounded-lg p-2 text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" target="_blank" rel="noreferrer" aria-label="Abrir ubicación de la sede seleccionada">
+        <svg class="size-5" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 17s5-4.42 5-9a5 5 0 1 0-10 0c0 4.58 5 9 5 9Z" stroke="currentColor" stroke-width="1.6" /><circle cx="10" cy="8" r="1.6" fill="currentColor" /></svg>
+      </a>
     </div>
   </nav>
-</section>
+</div>
 
 <script>
-  const filterRoot = document.querySelector('[data-menu-filter]');
-  const contentRoot = document.querySelector('[data-menu-content]');
+  const initializeMenuControls = () => {
+    const filterRoot = document.querySelector('[data-menu-filter]');
+    const contentRoot = document.querySelector('[data-menu-content]');
 
-  if (filterRoot && contentRoot) {
-    const select = filterRoot.querySelector('#menu-category-select');
-    const tabButtons = Array.from(filterRoot.querySelectorAll('[data-filter-value]'));
-    const categorySections = Array.from(contentRoot.querySelectorAll('[data-category-section]'));
+    if (filterRoot && contentRoot) {
+      const tabButtons = Array.from(filterRoot.querySelectorAll('[data-filter-value]'));
+      const categorySections = Array.from(contentRoot.querySelectorAll('[data-category-section]'));
+      const locationSelector = filterRoot.querySelector('[data-location-selector]');
+      const locationTrigger = filterRoot.querySelector<HTMLButtonElement>('[data-location-trigger]');
+      const locationOptions = filterRoot.querySelector('[data-location-options]');
+      const selectedLocation = filterRoot.querySelector('[data-selected-location]');
+      const locationLink = filterRoot.querySelector('[data-location-link]');
 
-    const applyFilter = (value: any) => {
-      categorySections.forEach((section) => {
-        const category = section.getAttribute('data-category-section');
-        const isVisible = value === 'all' || value === category;
-        section.classList.toggle('hidden', !isVisible);
-      });
+      const applyFilter = (value: any) => {
+        categorySections.forEach((section) => {
+          const category = section.getAttribute('data-category-section');
+          const isVisible = value === 'all' || value === category;
+          section.classList.toggle('hidden', !isVisible);
+        });
+
+        tabButtons.forEach((button) => {
+          const selected = button.getAttribute('data-filter-value') === value;
+          button.setAttribute('aria-selected', selected ? 'true' : 'false');
+          button.classList.toggle('bg-secondary', selected);
+          button.classList.toggle('text-white', selected);
+          button.classList.toggle('border', !selected);
+          button.classList.toggle('border-secondary/10', !selected);
+          button.classList.toggle('bg-white', !selected);
+          button.classList.toggle('text-secondary/60', !selected);
+        });
+      };
+
+      const moveToCategory = (value: string) => {
+        const target = value === 'all'
+          ? contentRoot
+          : contentRoot.querySelector(`[data-category-section="${value}"]`);
+
+        if (target instanceof HTMLElement) {
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+      };
 
       tabButtons.forEach((button) => {
-        const selected = button.getAttribute('data-filter-value') === value;
-        button.setAttribute('aria-selected', selected ? 'true' : 'false');
-        button.classList.toggle('bg-secondary', selected);
-        button.classList.toggle('text-white', selected);
-        button.classList.toggle('border', !selected);
-        button.classList.toggle('border-secondary/10', !selected);
-        button.classList.toggle('bg-white', !selected);
-        button.classList.toggle('text-secondary/60', !selected);
+        button.addEventListener('click', () => {
+          const value = button.getAttribute('data-filter-value') || 'all';
+          applyFilter(value);
+          window.requestAnimationFrame(() => moveToCategory(value));
+        });
       });
 
-      if (select && select.value !== value) {
-        select.value = value;
-      }
-    };
+      const setLocationSelectorOpen = (isOpen: boolean) => {
+        locationSelector?.classList.toggle('is-open', isOpen);
+        locationOptions?.classList.toggle('hidden', !isOpen);
+        locationTrigger?.setAttribute('aria-expanded', String(isOpen));
+      };
 
-    tabButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const value = button.getAttribute('data-filter-value') || 'all';
-        applyFilter(value);
+      locationTrigger?.addEventListener('click', () => {
+        setLocationSelectorOpen(locationTrigger.getAttribute('aria-expanded') !== 'true');
       });
-    });
 
-    if (select) {
-      select.addEventListener('change', (event) => {
-        const target = event.target;
-        if (target instanceof HTMLSelectElement) {
-          applyFilter(target.value);
+      locationSelector?.querySelectorAll<HTMLButtonElement>('[data-location-name]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const name = button.dataset.locationName;
+          const map = button.dataset.locationMap;
+
+          if (name && selectedLocation) selectedLocation.textContent = name;
+          if (map && locationLink instanceof HTMLAnchorElement) {
+            locationLink.href = map;
+            locationLink.classList.remove('hidden');
+          }
+
+          setLocationSelectorOpen(false);
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        if (event.target instanceof Node && !locationSelector?.contains(event.target)) {
+          setLocationSelectorOpen(false);
         }
       });
-    }
 
-    applyFilter('all');
+      applyFilter('all');
+    } else {
+      window.requestAnimationFrame(initializeMenuControls);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeMenuControls, { once: true });
+  } else {
+    initializeMenuControls();
   }
 </script>

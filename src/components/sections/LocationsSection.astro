@@ -1,8 +1,6 @@
 ---
 import Card from "../ui/Card.astro";
-import Badge from "../ui/Badge.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
-import LocationIcon from "../../assets/icons/location.svg";
 import { locations } from "../../data/locations.data";
 ---
 
@@ -46,17 +44,17 @@ import { locations } from "../../data/locations.data";
       </div> -->
     </div>
 
-    <div class="grid gap-6 md:grid-cols-3">
+    <div class="grid gap-6 sm:grid-cols-2">
       {
         locations.map((location) => (
-          <Card class="group hover:border-primary/30 hover:shadow-xl h-rounded-xl overflow-hidden">
-            {/* {location.badge && <Badge>{location.badge}</Badge>} */}
-
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_WlXlAFp5WyVJq-bwnC46ZdqUB_jSR0XaTmgN-N-4BxSrjdbPYenB-sVuWto9l3Dd4oy1x7InL2A0gB3ZA0MXKJoHkmERwgwbf6q4ayJHdxJY2qrz9uEqwF9rcBNyAKnTE3Nqvz1a9MiyK9GEFgSzC7_RHxCnqoEmiBGCDQ3idSajj7DCEYogXVz-RTV9KT7_upP160ad9h-pxWzrHeXVSjO-9doigzBqv5creieZ5nKpVjlFXRgXahyBVKUrTRKDbJBvFWVnyg"
-              alt=""
-              class="object-cover max-h-120 w-full"
-            />
+          <Card class="group overflow-hidden hover:border-primary/30 hover:shadow-xl">
+            <iframe
+              src={`https://www.google.com/maps?q=${location.coordinates}&z=16&output=embed`}
+              title={`Mapa de MISHA — ${location.address}`}
+              class="h-56 w-full border-0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
             <div class="flex flex-col gap-2 p-4">
               <h3 class="font-display text-2xl text-secondary">
                 {location.name}
@@ -66,6 +64,8 @@ import { locations } from "../../data/locations.data";
               </p>
               <a
                 href={location.mapUrl}
+                target="_blank"
+                rel="noreferrer"
                 class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary transition-all hover:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 Abrir en Google Maps
