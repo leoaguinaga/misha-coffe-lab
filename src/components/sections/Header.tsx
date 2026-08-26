@@ -9,10 +9,7 @@ export default function Header() {
           <span className="text-2xl font-extrabold tracking-[-0.035em] text-secondary">MISHA COFFE LAB</span>
         </a>
         <nav className="flex gap-3 lg:gap-4 items-center">
-          <a href="/#nosotros" className="max-md:hidden hover:underline underline-offset-4">Nosotros</a>
-          <a href="/#especialidades" className="max-md:hidden hover:underline underline-offset-4">Especialidades</a>
-          <a href="/#sedes" className="max-md:hidden hover:underline underline-offset-4">Sedes</a>
-          <a href="/#experiencias" className="max-md:hidden hover:underline underline-offset-4">Experiencias</a>
+          <a href="/links" className="max-md:hidden hover:underline underline-offset-4">Nuestros enlaces</a>
           {/* <a href="/#delivery" className="max-md:hidden hover:underline underline-offset-4">Delivery</a> */}
           <a
             href="/carta"

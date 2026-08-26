@@ -2,13 +2,21 @@
 import Button from '../ui/Button.astro';
 ---
 
-<section class="bg-secondary py-14 text-white sm:py-20" aria-labelledby="value-title">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr_0.8fr] md:items-end xl:px-0">
-    <div>
+<section class="relative isolate overflow-hidden bg-secondary py-14 text-white sm:py-20" aria-labelledby="value-title">
+  <div class="pointer-events-none absolute inset-0 -top-50 -z-10 opacity-50" aria-hidden="true">
+    <img
+      src="/images/coffee-beans-scattered.png"
+      alt=""
+      class="h-full w-full object-cover object-center mix-blend-screen"
+    />
+  </div>
+
+  <div class="relative mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1.2fr_0.8fr] md:items-end xl:px-0">
+    <div class="relative z-10">
       <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary">La propuesta MISHA</p>
       <h2 id="value-title" class="misha-heading mt-4 max-w-3xl">Café peruano de alta calidad, preparado con cercanía y detalle.</h2>
     </div>
-    <div class="md:pb-1">
+    <div class="relative z-10 md:pb-1">
       <p class="text-base leading-relaxed text-white/70">Desde un espresso cotidiano hasta un método para quedarte un rato más: en MISHA cada taza invita a descubrir el café sin complicaciones.</p>
       <Button href="/carta" size="md" class="mt-6 w-full rounded-xl sm:w-auto">Explorar la carta</Button>
     </div>
