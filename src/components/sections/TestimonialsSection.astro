@@ -309,7 +309,8 @@ import { instagramPosts } from "../../data/instagram.data";
           Síguenos en Instagram
         </h3>
         <a
-          href="#"
+          href="https://www.instagram.com/mishacoffeelab/"
+          target="_blank"
           class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           Ver Instagram
@@ -318,8 +319,7 @@ import { instagramPosts } from "../../data/instagram.data";
       <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
         {
           instagramPosts.map((post) => (
-            <a
-              href="#"
+            <div
               class="aspect-[3/4] overflow-hidden bg-secondary/10 rounded-lg"
               aria-label="Abrir publicación de Instagram"
             >
@@ -329,7 +329,7 @@ import { instagramPosts } from "../../data/instagram.data";
                 class="h-full w-full object-cover transition-opacity hover:opacity-80"
                 loading="lazy"
               />
-            </a>
+            </div>
           ))
         }
       </div>
